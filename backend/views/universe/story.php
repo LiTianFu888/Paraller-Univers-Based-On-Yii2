@@ -93,45 +93,53 @@
         var element = layui.element;
 
     });
-    //方法级渲染
-    table.render({
-        elem: '#LAY_table_user'
-        ,url: '/universe/storyTable'
-        ,cols: [[
-            {type:'checkbox', fixed: 'left'}
-            ,{field:'time', title: '时间', width:200, sort: true, fixed: true}
-            ,{field:'msg', title: '内容', width:800}
-        ]]
-        ,id: 'story'
-        ,page: false
-        ,height: 800
-        ,width:1000
-    });
-    var $ = layui.$, active = {
-        getCheckData: function(){ //获取选中数据
-            var checkStatus = table.checkStatus('story')
-                ,data = checkStatus.data;
-            layer.alert(JSON.stringify(data));
-        }
-        , reload: function(){
-            var demoReload = $('#demoReload');
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function(obj){
+            console.log(obj)
+        });
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user'
+            ,url: '/universe/storyTable'
+            ,cols: [[
+                {type:'checkbox', fixed: 'left'}
+                ,{field:'time', title: '时间', width:200, sort: true, fixed: true}
+                ,{field:'msg', title: '消息', width:800}
+            ]]
+            ,id: 'storyTable'
+            ,page: false
+            ,height: 800
+            ,width:1000
+        });
+        var $ = layui.$, active = {
+            getCheckData: function(){ //获取选中数据
+                var checkStatus = table.checkStatus('testReload')
+                    ,data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+            , reload: function(){
+                var demoReload = $('#demoReload');
 
-            //执行重载
-            table.reload('story', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                ,where: {
-                    id: demoReload.val()
-                }
-                ,url: '/story/storyTable'
-                ,method: 'post'
-            }, 'data');
-        }
-    };
-    $('.demoTable .layui-btn').on('click', function(){
-        var type = $(this).data('type');
-        active[type] ? active[type].call(this) : '';
+                //执行重载
+                table.reload('storyTable', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        id: demoReload.val()
+                    }
+                    ,url: '/universe/storyTable'
+                    ,method: 'post'
+                }, 'data');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
     });
 </script>
 
