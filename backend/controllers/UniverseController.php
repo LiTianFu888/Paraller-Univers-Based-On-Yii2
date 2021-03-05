@@ -130,14 +130,17 @@ class UniverseController extends Controller
         return $this->renderAjax();
     }
 
-    public function actionStoryList(){
+    public function actionStory(){
         $session = Yii::$app->session;
         if (!isset($session['user'])){
             return $this->renderPartial('/universe/home');
         }
-        return $this->renderAjax();
+        return $this->renderPartial('universe/story');
     }
 
+    public function actionStoryTable(){
+        echo json_encode([['time'=>'2020','msg'=>'test msg']]);
+    }
     public function actionTalkList(){
         $session = Yii::$app->session;
         if (!isset($session['user'])){
