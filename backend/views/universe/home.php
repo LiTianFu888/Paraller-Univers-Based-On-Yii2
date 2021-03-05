@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Parallel Universe </title>
-    <link rel="stylesheet" href="<?php echo __DIR__.'../static/common/layui/css/layui.css'?>">
-    <link rel="stylesheet" href="<?php echo __DIR__.'static/admin/css/login.css'?>">
-    <script src="<?php echo __DIR__.'static/common/layui/layui.js'?>"></script>
+    <link rel="stylesheet" href="/../../static/common/layui/css/layui.css">
+    <link rel="stylesheet" href="/../../static/admin/css/login.css">
+    <script src="/../../static/common/layui/layui.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
 </head>
 <body class="layui-layout-body">
@@ -92,8 +92,7 @@
     © Parallel Universe Created By Li - 2021
   </div>
 </div>
-<script src="<?php echo base_url().'static/common/layui/layui.js'?>"></script>
-<script src="<?php echo base_url().'static/common/echarts.js'?>"></script>
+
 <script>
 //JavaScript代码区域
 layui.use('element', function(){

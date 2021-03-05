@@ -76,7 +76,7 @@ class UniverseController extends Controller
     }
 
     public function actionHome(){
-        return $this->render('/universe/home');
+        return $this->renderPartial('/universe/home');
     }
 
     /**
