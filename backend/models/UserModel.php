@@ -15,7 +15,7 @@ class UserModel extends Model{
     }
 
     public function getUserInfo($name){
-        $sql = sprintf('select * from %s where `name` = %s',$this->table,$name);
+        $sql = sprintf("select * from %s where `name` = '%s'",$this->table,$name);
         try{
             $res = $this->db->createCommand($sql)->queryOne();
             return $res;

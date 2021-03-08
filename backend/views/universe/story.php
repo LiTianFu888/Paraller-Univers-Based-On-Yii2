@@ -15,8 +15,8 @@
         <div class="layui-logo">Parallel Universe</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">He&She</a></li>
-            <li class="layui-nav-item"><a href="/goods/manage">He Want To Tell Her</a></li>
+            <li class="layui-nav-item"><a href="/universe/story">Story Of Them</a></li>
+            <li class="layui-nav-item"><a href="/universe/tell">He Want To Tell Her</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
@@ -29,7 +29,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="/login/logout">logout</a></li>
+            <li class="layui-nav-item"><a href="/universe/logout">logout</a></li>
         </ul>
     </div>
     <!--
@@ -69,19 +69,32 @@
       </div>
     </div>
     -->
-    <div class="layui-body">
+    <div class="layui-body"  style="left: 0px">
         <!-- 内容主体区域 -->
+	<div class ="layui-form-item">
 
+	</div>	
+	<div class ="layui-form-item">
+
+	</div>	
             <div class="demoTable">
-                <div class="layui-inline">
-                    <input name="story" class="layui-input" id="story" autocomplete="off" placeholder="To be continue">
-                </div>
-                <button class="layui-btn" data-type="reload">say</button>
+    		<div class="layui-input-block" contenteditable="true">
+      			<textarea id = "storyText" name="desc" placeholder="To be continue" class="layui-textarea"></textarea>
+    		</div>
+    		<div class="layui-input-block" style="left: 0px">
+      			<button class="layui-btn" data-type="reload" >say</button>
+    		</div>
             </div>
-        <table class="layui-hide" id="LAY_table_user" lay-filter="story"></table>
+
+        <div class ="layui-form-item">
+
+        </div>
+	<div class = "layui-input-block" contenteditable="true">
+        	<table class="layui-hide" id="LAY_table_user" lay-filter="story"></table>
+	</div>
     </div>
 
-    <div class="layui-footer">
+    <div class="layui-footer" style = "left:0px">
         <!-- 底部固定区域 -->
         © Parallel Universe Created By Li - 2021
     </div>
@@ -102,16 +115,17 @@
         //方法级渲染
         table.render({
             elem: '#LAY_table_user'
-            ,url: '/universe/storyTable'
+            ,url: '/universe/storytable'
             ,cols: [[
-                {type:'checkbox', fixed: 'left'}
-                ,{field:'time', title: '时间', width:200, sort: true, fixed: true}
-                ,{field:'msg', title: '消息', width:800}
+                {field:'time', title: '时间', width:200, sort: true, fixed: true}
+                ,{field:'msg', title: '消息', width:1000}
+
             ]]
             ,id: 'storyTable'
             ,page: false
-            ,height: 800
-            ,width:1000
+	    ,method: 'post'
+            ,height: '80%'
+            ,width:'100%'
         });
         var $ = layui.$, active = {
             getCheckData: function(){ //获取选中数据
@@ -120,7 +134,7 @@
                 layer.alert(JSON.stringify(data));
             }
             , reload: function(){
-                var demoReload = $('#demoReload');
+                var demoReload = $('#story');
 
                 //执行重载
                 table.reload('storyTable', {
@@ -130,11 +144,35 @@
                     ,where: {
                         id: demoReload.val()
                     }
-                    ,url: '/universe/storyTable'
+                    ,url: '/universe/storytable'
                     ,method: 'post'
                 }, 'data');
             }
         };
+        $('.demoTable .layui-btn').on('click', function(){
+            var text = document.getElementById('storyText');
+	    var data = text.value;
+	    $.ajax({
+              url:'storyadd',
+              type:'post',
+              data:{msg:data},
+              success:function(data){
+                  if(data.code == '0'){
+                      layer.msg(data.msg,{icon: 5});//失败的表情
+                      o.removeClass('layui-btn-disabled');
+                      return;
+                  }else{
+                      layer.msg(data.msg, {
+                          icon: 6,//成功的表情
+                          time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                      }, function(){
+                          location.reload();
+                      });
+                  }
+              },
+          });
+      
+        });
 
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');

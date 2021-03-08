@@ -15,8 +15,8 @@
     <div class="layui-logo">Parallel Universe</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="">He&She</a></li>
-      <li class="layui-nav-item"><a href="/goods/manage">He Want To Tell Her</a></li>
+      <li class="layui-nav-item"><a href="/universe/story">Story Of Them</a></li>
+      <li class="layui-nav-item"><a href="/universe/tell">He Want To Tell Her</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
@@ -29,7 +29,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="/login/logout">logout</a></li>
+      <li class="layui-nav-item"><a href="/universe/logout">logout</a></li>
     </ul>
   </div>
   <!--
@@ -87,7 +87,7 @@
 </div>
   </div>
   
-  <div class="layui-footer">
+  <div class="layui-footer" style="left:0px">
     <!-- 底部固定区域 -->
     © Parallel Universe Created By Li - 2021
   </div>

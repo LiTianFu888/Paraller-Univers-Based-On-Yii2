@@ -15,6 +15,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+	    'enableCsrfValidation' => false
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -73,4 +74,5 @@ return [
        
     ],
     'params' => $params,
+    'defaultRoute' => 'universe/index',
 ];

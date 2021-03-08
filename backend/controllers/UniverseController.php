@@ -24,7 +24,7 @@ class UniverseController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','home'],
+                        'actions' => ['logindex','index','login', 'error','story','home','storytable','storyadd'],
                         'allow' => true,
                     ],
                     [
@@ -62,7 +62,7 @@ class UniverseController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->renderPartial('index');
     }
 
     /**
@@ -80,7 +80,8 @@ class UniverseController extends Controller
         if ($userInfo['pwd'] == $pwd){
             $session = Yii::$app->session;
             $session->set('user',$name);
-            return $this->renderPartial('/universe/home');
+            $data = ['code'=>0,'message'=>'登录成功~~~'];
+            echo json_encode( $data);
         }else{
             $data = ['code'=>1001,'message'=>'账号或密码错误！'];
             echo json_encode($data);
@@ -91,8 +92,12 @@ class UniverseController extends Controller
 //	return;
     }
 
+    public function actionLogindex(){
+	 return $this->renderPartial('/universe/login');
+   }
+
     public function actionHome(){
-        return $this->renderPartial('/universe/home');
+        return $this->renderPartial('/universe/index');
     }
 
     /**
@@ -119,27 +124,30 @@ class UniverseController extends Controller
         $userService->say($name,$other,$msg);
         return $this->renderAjax();
     }
-    public function actionStoryAdd(){
+    public function actionStoryadd(){
         $session = Yii::$app->session;
         if (!isset($session['user'])){
-            return $this->renderPartial('/universe/home');
+            return $this->redirect('logindex');
         }
         $msg = Yii::$app->request->post('msg');
         $storyService = new StoryService();
         $storyService->add($msg);
-        return $this->renderAjax();
+       	echo json_encode(['code'=>0,'msg'=>'succ']);
     }
 
     public function actionStory(){
         $session = Yii::$app->session;
         if (!isset($session['user'])){
-            return $this->renderPartial('/universe/home');
+            return $this->redirect('logindex');
         }
-        return $this->renderPartial('universe/story');
+        return $this->renderPartial('story');
     }
 
-    public function actionStoryTable(){
-        echo json_encode([['time'=>'2020','msg'=>'test msg']]);
+    public function actionStorytable(){
+	$res = ['code'=>0,'msg'=>''];
+	$data = [['time'=>'2020','msg'=>'test msg']];
+	$res['data'] = $data;
+        echo json_encode($res);
     }
     public function actionTalkList(){
         $session = Yii::$app->session;
