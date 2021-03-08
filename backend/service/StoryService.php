@@ -20,4 +20,8 @@ class StoryService{
         $storyModel = $this->getModel();
         return $storyModel->add($msg);
     }
+    public function getList(){
+        $model = $this->getModel();
+        return $model->getList();
+    }
 }

@@ -25,4 +25,14 @@ class StoryModel extends Model{
             return false;
         }
     }
+
+    public function getList(){
+        $sql = sprintf("select * from %s order by create_time desc",$this->table);
+        try{
+            $res = $this->db->createCommand($sql)->queryAll();
+            return $res;
+        }catch (Exception $e){
+            return false;
+        }
+    }
 }

@@ -146,6 +146,8 @@ class UniverseController extends Controller
     public function actionStorytable(){
 	$res = ['code'=>0,'msg'=>''];
 	$data = [['time'=>'2020','msg'=>'test msg']];
+	$service = new StoryService();
+	$data = $service->getList();
 	$res['data'] = $data;
         echo json_encode($res);
     }
